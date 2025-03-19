@@ -6,6 +6,8 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $connection = 'mongodb';
+
     protected $fillable = [
         'code',
         'status',

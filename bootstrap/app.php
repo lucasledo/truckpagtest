@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\ApiTokenIsValid;
+use Illuminate\Console\Scheduling\Schedule;
+use App\Console\Commands\ImportProducts;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(ApiTokenIsValid::class);
+    })
+    ->withSchedule(function (Schedule $schedule) {
+        $schedule->call(new ImportProducts)->dailyAt('00:01');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
