@@ -31,16 +31,19 @@ class ProductController extends Controller
         try {
             return Product::where('code', $code)->firstOrFail();
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
 
             if($th instanceof \Illuminate\Database\Eloquent\ModelNotFoundException){
-                $message = "Product not found.";
+                return response(json_encode([
+                    'status'    => false,
+                    'message'   => "Product not found."
+                ]), 404);
             }
 
-            return response()->json([
+            report($th);
+            return response(json_encode([
                 'status'    => false,
-                'message'   => $message
-            ]);
+                'message'   => $th->getMessage()
+            ]), 500);
         }
     }
 
@@ -61,16 +64,19 @@ class ProductController extends Controller
             ]);
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
 
             if($th instanceof \Illuminate\Database\Eloquent\ModelNotFoundException){
-                $message = "Product not found.";
+                return response(json_encode([
+                    'status'    => false,
+                    'message'   => "Product not found."
+                ]), 404);
             }
 
-            return response()->json([
+            report($th);
+            return response(json_encode([
                 'status'    => false,
-                'message'   => $message
-            ]);
+                'message'   => $th->getMessage()
+            ]), 500);
         }
     }
 
