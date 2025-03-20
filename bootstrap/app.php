@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->append(ApiTokenIsValid::class);
+        $middleware->appendToGroup('api-auth', [ApiTokenIsValid::class]);
     })
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('app:import-products')->dailyAt('00:01');
