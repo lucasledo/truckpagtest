@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ProductSyncFailed;
 
 class ImportProducts extends Command
 {
@@ -42,7 +44,7 @@ class ImportProducts extends Command
 
                 $this->info("Processing file: $file");
 
-                $zipUrl = "https://challenges.coode.sh/food/data/json/$file";
+                $zipUr = "https://challenges.coode.sh/food/data/json/$file";
                 $zipContents = Http::get($zipUrl)->body();
 
                 $tempZipPath = storage_path("app/products.gz");
@@ -73,8 +75,11 @@ class ImportProducts extends Command
             } catch (\Throwable $th) {
                 report($th);
                 $this->error($th->getMessage());
-                //TODO NOtification
-                continue;
+
+                // Send email alert
+                Mail::to(env('EMAIL_NOTIFICATION'))->send(new ProductSyncFailed($th));
+
+                return;
             }
         }
 
