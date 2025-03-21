@@ -62,6 +62,7 @@ class ImportProducts extends Command
 
                     if(is_null($productData)) continue;
 
+                    $productData['code']        = isset($productData['code']) ? str_replace('"', "", $productData['code']) : null;
                     $productData['imported_t']  = Carbon::now();
                     $productData['status']      = 'draft';
 
