@@ -52,6 +52,69 @@ endpoints:
   -
     httpMethods:
       - GET
+    uri: api/products/search
+    metadata:
+      groupName: Products
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Search product by query on ElasticSearch'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: asodkaso1923ala441qisjdas4
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      query:
+        name: query
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanQueryParameters:
+      query: architecto
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"code": 12345, "product_name": "Example Product"}'
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: '{"status": false, "message": "Nothing product was found with: query"}'
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: '{"status": false, "message": "Error"}'
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
     uri: 'api/products/{code}'
     metadata:
       groupName: Products

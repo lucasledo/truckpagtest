@@ -4,6 +4,7 @@ namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Services\ElasticsearchService;
 
 class Product extends Model
 {
@@ -45,4 +46,12 @@ class Product extends Model
         'nutriscore_score'  => 'integer',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saved(function ($product) {
+            (new ElasticsearchService())->indexProduct($product->toArray());
+        });
+    }
 }

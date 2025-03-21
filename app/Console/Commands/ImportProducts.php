@@ -38,13 +38,13 @@ class ImportProducts extends Command
 
         foreach ($files as $key => $file) {
             try {
-                if (empty($file)) {
+                if (empty($file) || $key != 8) {
                     continue;
                 }
 
                 $this->info("Processing file: $file");
 
-                $zipUr = "https://challenges.coode.sh/food/data/json/$file";
+                $zipUrl = "https://challenges.coode.sh/food/data/json/$file";
                 $zipContents = Http::get($zipUrl)->body();
 
                 $tempZipPath = storage_path("app/products.gz");

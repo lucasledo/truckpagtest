@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Services\ElasticsearchService;
 
 class ProductController extends Controller
 {
@@ -152,6 +153,45 @@ class ProductController extends Controller
                 ]), 404);
             }
 
+            report($th);
+            return response(json_encode([
+                'status'    => false,
+                'message'   => $th->getMessage()
+            ]), 500);
+        }
+    }
+
+    /**
+     * Search product by query on ElasticSearch
+     * @group Products
+     * @authenticated
+     * @queryParam query required
+     * @response 200 {"code": 12345, "product_name": "Example Product"}
+     * @response 404 {"status": false, "message": "Nothing product was found with: query"}
+     * @response 500 {"status": false, "message": "Error"}
+     */
+    public function search(Request $request)
+    {
+        try {
+
+            $query          = $request->input('query');
+
+            if(is_null($query)) return response()->json(['status' => false, 'message' => 'Field query is mandatory.']);
+
+            $searchService  = new ElasticsearchService();
+            $results        = $searchService->searchProducts($query);
+            $data           = $results->asArray()['hits']['hits'];
+
+            if(count($data) > 0){
+                return response()->json($data);
+            }else{
+                return response(json_encode([
+                    'status'    => false,
+                    'message'   => "Nothing product was found with: {$query}"
+                ]), 404);
+            }
+
+        } catch (\Throwable $th) {
             report($th);
             return response(json_encode([
                 'status'    => false,
