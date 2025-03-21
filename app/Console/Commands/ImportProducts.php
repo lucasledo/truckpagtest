@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
+use App\Models\ImportProductHistory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ProductSyncFailed;
@@ -36,9 +37,14 @@ class ImportProducts extends Command
         $response = Http::get($url);
         $files    = explode("\n", $response->body());
 
+        $currentFile        = '';
+        $products_imported  = 0;
+
         foreach ($files as $key => $file) {
             try {
-                if (empty($file) || $key != 8) {
+                $currentFile = $file;
+
+                if (empty($file)) {
                     continue;
                 }
 
@@ -57,7 +63,9 @@ class ImportProducts extends Command
                 $jsonData       = explode("\n", file_get_contents($jsonFilePath));
 
                 $this->info('Importing...');
+                $products_imported = 0;
                 foreach ($jsonData as $k => $json) {
+                    $products_imported = $k;
                     if ($k == 100) break;
 
                     $productData = json_decode($json, true);
@@ -72,12 +80,29 @@ class ImportProducts extends Command
                 }
 
                 $this->info("Import of $k products from file $file has been finished.");
+
+                ImportProductHistory::create([
+                    'date'              => Carbon::now(),
+                    'status'            => 'completed',
+                    'products_imported' => $products_imported,
+                    'file'              => $currentFile,
+                    'message'           => "Import of $k products from file $file has been finished."
+                ]);
+
             } catch (\Throwable $th) {
                 report($th);
                 $this->error($th->getMessage());
 
                 // Send email alert
                 Mail::to(env('EMAIL_NOTIFICATION'))->send(new ProductSyncFailed($th));
+
+                ImportProductHistory::create([
+                    'date'              => Carbon::now(),
+                    'status'            => 'failed',
+                    'products_imported' => $products_imported,
+                    'file'              => $currentFile,
+                    'message'           => $th->getMessage()
+                ]);
 
                 return;
             }
