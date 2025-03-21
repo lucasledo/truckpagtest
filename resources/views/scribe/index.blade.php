@@ -27,7 +27,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://truckpag-api.local";
+        var tryItOutBaseUrl = "http://localhost:8000";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -96,7 +96,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 20, 2025</li>
+        <li>Last updated: March 21, 2025</li>
     </ul>
 </div>
 
@@ -105,7 +105,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://truckpag-api.local</code>
+    <strong>Base URL</strong>: <code>http://localhost:8000</code>
 </aside>
 <pre><code>This documentation aims to provide all the information you need to work with our API.
 
@@ -135,7 +135,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://truckpag-api.local/api/products" \
+    --get "http://localhost:8000/api/products" \
     --header "Authorization: asodkaso1923ala441qisjdas4" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -143,7 +143,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://truckpag-api.local/api/products"
+    "http://localhost:8000/api/products"
 );
 
 const headers = {
@@ -160,7 +160,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://truckpag-api.local/api/products';
+$url = 'http://localhost:8000/api/products';
 $response = $client-&gt;get(
     $url,
     [
@@ -295,7 +295,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://truckpag-api.local/api/products/12345" \
+    --get "http://localhost:8000/api/products/12345" \
     --header "Authorization: asodkaso1923ala441qisjdas4" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -303,7 +303,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://truckpag-api.local/api/products/12345"
+    "http://localhost:8000/api/products/12345"
 );
 
 const headers = {
@@ -320,7 +320,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://truckpag-api.local/api/products/12345';
+$url = 'http://localhost:8000/api/products/12345';
 $response = $client-&gt;get(
     $url,
     [
@@ -476,7 +476,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://truckpag-api.local/api/products/12345" \
+    "http://localhost:8000/api/products/12345" \
     --header "Authorization: asodkaso1923ala441qisjdas4" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -484,7 +484,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://truckpag-api.local/api/products/12345"
+    "http://localhost:8000/api/products/12345"
 );
 
 const headers = {
@@ -501,7 +501,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://truckpag-api.local/api/products/12345';
+$url = 'http://localhost:8000/api/products/12345';
 $response = $client-&gt;delete(
     $url,
     [
@@ -657,7 +657,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://truckpag-api.local/api/products/architecto" \
+    "http://localhost:8000/api/products/architecto" \
     --header "Authorization: asodkaso1923ala441qisjdas4" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -691,7 +691,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://truckpag-api.local/api/products/architecto"
+    "http://localhost:8000/api/products/architecto"
 );
 
 const headers = {
@@ -735,7 +735,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://truckpag-api.local/api/products/architecto';
+$url = 'http://localhost:8000/api/products/architecto';
 $response = $client-&gt;put(
     $url,
     [

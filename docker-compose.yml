@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    container_name: truckpagapi
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+
+  nginx:
+    image: nginx:latest
+    container_name: truckpagapi_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
