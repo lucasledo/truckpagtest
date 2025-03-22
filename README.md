@@ -18,8 +18,8 @@ O TruckPag API é uma API desenvolvida para um desafio de programação. Ele ofe
 ### **1. Clonar o repositório**
 
 ```sh
-  git clone https://github.com/seu-usuario/truckpag-api.git
-  cd truckpag-api
+  git clone git@github.com:lucasledo/truckpagtest.git
+  cd truckpagtest
 ```
 
 ### **2. Configurar o ambiente**
