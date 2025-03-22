@@ -55,35 +55,38 @@ EMAIL_NOTIFICATION=seuemail@test.com
 
 Isso irá iniciar os containers do PHP, Nginx, MongoDB e Elasticsearch.
 
-### **4. Importar Produtos**
+### **4. Instalar dependências**
+
+Entre no container da aplicação e instale as dependências PHP e rode migration:
 
 ```sh
     docker exec -it truckpagapi bash
+    composer install
+    php artisan migrate
 ```
 
-E depois rode o comando para importar:
+### **5. Importar Produtos**
+
+Entre no container da aplicação e rode o comando para importar:
 
 ```sh
+    docker exec -it truckpagapi bash
     php artisan app:import-products
 ```
 
-### **5. Testar a API**
+### **6. Testar a API**
 
 A API estará rodando em `http://localhost:8000`.
 
 Para testar os endpoints documentados, utilize a documentação gerada com Scribe em `http://localhost:8000/docs`.
 
----
 
-### **6. Teste Unit**
+### **7. Teste Unit**
+
+Entre no container da aplicação e rode o comando para testar:
 
 ```sh
     docker exec -it truckpagapi bash
-```
-
-E depois rode o comando para testar:
-
-```sh
     php artisan test --filter=ProductTest
 ```
 

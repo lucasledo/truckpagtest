@@ -29,15 +29,12 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copiar arquivos do Laravel para dentro do container
 COPY . /var/www/html
 
-# Instalar dependências do Laravel
-RUN composer install --no-dev --optimize-autoloader
+RUN echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/memory.ini
 
 # Garantir que os diretórios existem antes de alterar permissões
 RUN mkdir -p /var/www/html/storage /var/www/html/storage/framework/{cache,sessions,views} /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
-RUN php artisan migrate --force
+    && chmod -R 0777 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Expor porta
 EXPOSE 9000
