@@ -37,6 +37,7 @@ RUN mkdir -p /var/www/html/storage /var/www/html/storage/framework/{cache,sessio
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+RUN php artisan migrate --force
 
 # Expor porta
 EXPOSE 9000
